@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tic Tac Toe</h1>
+      <div class="buttons-container">
+        <button class="new-game">New Game</button>
+      </div>
+      <h2 class="player">Currently playing: <span class="active-player"></span></h2>
+      <div class="board-container">
+        <div class="board">
+          <div class="square active" data-x="0" data-y="0"></div>
+          <div class="square active" data-x="0" data-y="1"></div>
+          <div class="square active" data-x="0" data-y="2"></div>
+          <div class="square active" data-x="1" data-y="0"></div>
+          <div class="square active" data-x="1" data-y="1"></div>
+          <div class="square active" data-x="1" data-y="2"></div>
+          <div class="square active" data-x="2" data-y="0"></div>
+          <div class="square active" data-x="2" data-y="1"></div>
+          <div class="square active" data-x="2" data-y="2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAYER CREATION UI -->
+    <div class="creation-wrapper">
+      <div class="form-container">
+        <h2 class="player-creation-title">Player Creation Menu</h2>
+        <p class="player-creation-error"></p>
+        <form class="player-form player-one-form">
+          <label for="player-one-name-label" class="player-input"
+            >Player one name:
+            <input type="text" name="player-one-name" class="player-one-name" class="player-name" />
+          </label>
+          <p>Player one color:</p>
+          <div class="colors-container">
+            <label class="radio-container">
+              <input
+                type="radio"
+                name="player-one-color"
+                value="#FF6347"
+                data-type="player-one-default"
+                checked
+              />
+              <span class="color-pick color-one"></span>
+            </label>
+
+            <label class="radio-container">
+              <input type="radio" name="player-one-color" value="#00FFFF" />
+              <span class="color-pick color-two"></span>
+            </label>
+
+            <label class="radio-container">
+              <input type="radio" name="player-one-color" value="#FF8C00" />
+              <span class="color-pick color-three"></span>
+            </label>
+
+            <label class="radio-container">
+              <input type="radio" name="player-one-color" value="#ADFF2F" />
+              <span class="color-pick color-four"></span>
+            </label>
+          </div>
+        </form>
+        <form class="player-form player-two-form">
+          <label for="player-two-name" class="player-input"
+            >Player two name:
+            <input
+              type="text"
+              name="player-two-name-label"
+              class="player-two-name"
+              class="player-name"
+            />
+          </label>
+          <p>Player two color:</p>
+
+          <div class="colors-container">
+            <label class="radio-container">
+              <input type="radio" name="player-two-color" value="#FF6347" />
+              <span class="color-pick color-one"></span>
+            </label>
+
+            <label class="radio-container">
+              <input
+                type="radio"
+                name="player-two-color"
+                data-type="player-two-default"
+                value="#00FFFF"
+                checked
+              />
+              <span class="color-pick color-two"></span>
+            </label>
+
+            <label class="radio-container">
+              <input type="radio" name="player-two-color" value="#FF8C00" />
+              <span class="color-pick color-three"></span>
+            </label>
+
+            <label class="radio-container">
+              <input type="radio" name="player-two-color" value="#ADFF2F" />
+              <span class="color-pick color-four"></span>
+            </label>
+          </div>
+        </form>
+        <div class="player-buttons-wrapper">
+          <button class="create-players">Start game!</button>
+          <button class="cancel">Cancel</button>
+          <button class="exit">X</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIN / TIE MESSAGE -->
+    <div class="message-container hidden">
+      <div class="message-box">
+        <p class="message-display"></p>
+        <button class="ok">OK</button>
+      </div>
+    </div>
+  </body>
+  <script src="app.js"></script>
+</html>
