@@ -28,7 +28,9 @@ const gameFlowController = (function () {
     const gameStatus = gameBoard.isGameFinished();
     if (gameStatus.finished) {
       boardUI.deactivateBoard();
-      let winningPlayer = gameStatus.won ? playerController.getActivePlayer() : null;
+      let winningPlayer = gameStatus.won
+        ? playerController.getActivePlayer()
+        : null;
       messageDisplay.displayWinOrTie(winningPlayer);
     } else {
       _playNextTurn();
@@ -82,7 +84,7 @@ const gameBoard = (function () {
       won: false,
     };
     let lines = _generateLines();
-    lines.forEach(line => {
+    lines.forEach((line) => {
       let uniqueEntries = Array.from(new Set(line));
       if (uniqueEntries.length === 1 && uniqueEntries[0] !== "") {
         gameStatus.finished = true;
@@ -127,8 +129,8 @@ const gameBoard = (function () {
 
   function _countBoard() {
     let count = 0;
-    boardState.forEach(row => {
-      row.forEach(square => (square !== "" ? count++ : null));
+    boardState.forEach((row) => {
+      row.forEach((square) => (square !== "" ? count++ : null));
     });
     return count;
   }
@@ -155,13 +157,11 @@ const gameBoard = (function () {
 // ------------------BOARD UI MODULE---------------------------------------
 // ------------------------------------------------------------------------
 
-// TODO change boardUI state to disactivated as default
-
 const boardUI = (function () {
   let boardActive = true;
   const squares = document.querySelectorAll(".square");
 
-  squares.forEach(square => {
+  squares.forEach((square) => {
     square.addEventListener("click", _handleSquarePress);
   });
 
@@ -173,7 +173,7 @@ const boardUI = (function () {
   }
 
   function displayBoard(board) {
-    squares.forEach(square => {
+    squares.forEach((square) => {
       let x = square.dataset.x;
       let y = square.dataset.y;
       square.innerText = board[x][y];
@@ -181,7 +181,7 @@ const boardUI = (function () {
   }
 
   function deactivateSquare(position) {
-    squares.forEach(square => {
+    squares.forEach((square) => {
       if (square.dataset.x == position[0] && square.dataset.y == position[1]) {
         square.classList.remove("active");
       }
@@ -190,19 +190,25 @@ const boardUI = (function () {
 
   function deactivateBoard() {
     boardActive = false;
-    squares.forEach(square => square.classList.remove("active"));
+    squares.forEach((square) => square.classList.remove("active"));
   }
 
   function activateBoard() {
     boardActive = true;
-    squares.forEach(square => square.classList.add("active"));
+    squares.forEach((square) => square.classList.add("active"));
   }
 
   function resetBoard() {
-    squares.forEach(square => (square.innerText = ""));
+    squares.forEach((square) => (square.innerText = ""));
   }
 
-  return { displayBoard, deactivateSquare, deactivateBoard, resetBoard, activateBoard };
+  return {
+    displayBoard,
+    deactivateSquare,
+    deactivateBoard,
+    resetBoard,
+    activateBoard,
+  };
 })();
 
 // ------------------------------------------------------------------------
@@ -268,12 +274,25 @@ const playerCreationUI = (function () {
   creationWindow.addEventListener("click", _handleOutsideClick);
 
   function _handleCreatePlayers(e) {
-    const playerOneForm = new FormData(document.querySelector(".player-one-form"));
-    const playerTwoForm = new FormData(document.querySelector(".player-two-form"));
+    const playerOneForm = new FormData(
+      document.querySelector(".player-one-form")
+    );
+    const playerTwoForm = new FormData(
+      document.querySelector(".player-two-form")
+    );
     if (_checkForm(playerOneForm) && _checkForm(playerTwoForm)) {
-      const playerOneColor = document.querySelector('input[name="player-one-color"]:checked').value;
-      const playerTwoColor = document.querySelector('input[name="player-two-color"]:checked').value;
-      if (playerOneInput && playerTwoInput && playerOneColor && playerTwoColor) {
+      const playerOneColor = document.querySelector(
+        'input[name="player-one-color"]:checked'
+      ).value;
+      const playerTwoColor = document.querySelector(
+        'input[name="player-two-color"]:checked'
+      ).value;
+      if (
+        playerOneInput &&
+        playerTwoInput &&
+        playerOneColor &&
+        playerTwoColor
+      ) {
         playerController.addPlayer(playerOneInput.value, playerOneColor);
         playerController.addPlayer(playerTwoInput.value, playerTwoColor);
         upperDisplayUI.displayCurrentPlayer();
@@ -318,10 +337,18 @@ const playerCreationUI = (function () {
   function _clearInputs() {
     playerOneInput.value = "";
     playerTwoInput.value = "";
-    document.querySelector('input[name="player-one-color"]:checked').checked = false;
-    document.querySelector('input[name="player-two-color"]:checked').checked = false;
-    document.querySelector('input[data-type="player-one-default"]').checked = true;
-    document.querySelector('input[data-type="player-two-default"]').checked = true;
+    document.querySelector(
+      'input[name="player-one-color"]:checked'
+    ).checked = false;
+    document.querySelector(
+      'input[name="player-two-color"]:checked'
+    ).checked = false;
+    document.querySelector(
+      'input[data-type="player-one-default"]'
+    ).checked = true;
+    document.querySelector(
+      'input[data-type="player-two-default"]'
+    ).checked = true;
   }
 
   function showCreationUI() {
@@ -380,10 +407,13 @@ const upperDisplayUI = (function () {
   function displayCurrentPlayer() {
     const player = playerController.getActivePlayer();
     activePlayerDisplay.innerText = player.getName();
-    document.documentElement.style.setProperty("--player", `${player.getColor()}`);
+    document.documentElement.style.setProperty(
+      "--player",
+      `${player.getColor()}`
+    );
   }
 
   return { displayCurrentPlayer };
 })();
 
-boardUI.deactivateBoard();
+boardUI.deactivateBoard(); // Initial deactivation of the board TODO make deactivated as default
