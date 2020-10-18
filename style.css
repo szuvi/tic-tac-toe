@@ -58,6 +58,8 @@ button:hover {
   color: var(--player);
 }
 
+/* BOARD */
+
 .board-container {
   height: 400px;
   width: 400px;
@@ -74,6 +76,10 @@ button:hover {
 
 .square {
   border: 1px solid var(--dark);
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+  font-weight: bold;
 }
 
 .active:hover {
